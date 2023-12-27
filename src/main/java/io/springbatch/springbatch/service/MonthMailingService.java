@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +34,21 @@ public class MonthMailingService {
 
         JobParameters jobParameter = new JobParametersBuilder()
                 .addDate("startTime", date)
+                .addString("randomStringForTest", generateRandomString())
                 .toJobParameters();
 
         this.jobLauncher.run(findJob, jobParameter);
+    }
+
+    private String generateRandomString() {
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+        return random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
     }
 
 }
