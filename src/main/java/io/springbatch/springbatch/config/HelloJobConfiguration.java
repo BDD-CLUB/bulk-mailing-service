@@ -32,15 +32,12 @@ public class HelloJobConfiguration {
     @Bean
     public Step helloStep2(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
         return new StepBuilder("helloStep2", jobRepository)
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("=======================");
-                        System.out.println(" >> Step2 was executed");
-                        System.out.println("=======================");
+                .tasklet((contribution, chunkContext) -> {
+                    System.out.println("=======================");
+                    System.out.println(" >> Step2 was executed");
+                    System.out.println("=======================");
 
-                        return RepeatStatus.FINISHED;
-                    }
+                    return RepeatStatus.FINISHED;
                 }, platformTransactionManager).build();
 
     }
@@ -48,15 +45,12 @@ public class HelloJobConfiguration {
     @Bean
     public Step helloStep1(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
         return new StepBuilder("helloStep1", jobRepository)
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("=======================");
-                        System.out.println(" >> Step1 was executed");
-                        System.out.println("=======================");
+                .tasklet((contribution, chunkContext) -> {
+                    System.out.println("=======================");
+                    System.out.println(" >> Step1 was executed");
+                    System.out.println("=======================");
 
-                        return RepeatStatus.FINISHED;
-                    }
+                    return RepeatStatus.FINISHED;
                 }, platformTransactionManager).build();
     }
 
