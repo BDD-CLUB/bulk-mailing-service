@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.Random;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class MonthMailingService {
 
@@ -43,7 +42,7 @@ public class MonthMailingService {
     }
 
     private String generateRandomString() {
-        int leftLimit = 97; // letter 'a'
+        int leftLimit = 97; // letter 'a'4
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 10;
         Random random = new Random();
