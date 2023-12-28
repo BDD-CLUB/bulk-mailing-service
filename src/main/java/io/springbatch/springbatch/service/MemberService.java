@@ -1,9 +1,14 @@
 package io.springbatch.springbatch.service;
 
+import io.springbatch.springbatch.dto.MemberResponse;
 import io.springbatch.springbatch.entity.Member;
 import io.springbatch.springbatch.entity.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -11,7 +16,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public void signUp(String name, String email) {
+    public void signUp(final String name, final String email) {
         memberRepository.findByName(name)
                 .ifPresent((member) -> {
                     throw new RuntimeException(member.getName() + "은 이미 있습니다.");
@@ -24,11 +29,15 @@ public class MemberService {
                 .build());
     }
 
-    public void deleteMember(Long memberId) {
+    public void deleteMember(final Long memberId) {
         final Long findMemberId = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("해당하는 Id 값은 없습니다."))
                 .getId();
 
         memberRepository.deleteById(findMemberId);
+    }
+
+    public Page<Member> findAllMember(Pageable pageable) {
+        return memberRepository.findAll(pageable);
     }
 }
