@@ -2,6 +2,7 @@ package io.springbatch.springbatch.controller;
 
 import io.springbatch.springbatch.dto.MonthRepostRequest;
 import io.springbatch.springbatch.service.MonthMailingService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.launch.JobLauncher;
@@ -20,8 +21,7 @@ public class MailingController {
     private final MonthMailingService mailingService;
 
     @PostMapping("/month-report")
-    public ResponseEntity<Void> reportMonthSummary(@RequestBody MonthRepostRequest request) throws Exception {
-//        mailingService.runMailingBatch(request.getJobName(), request.getDate());
+    public ResponseEntity<Void> reportMonthSummary(@RequestBody @Valid MonthRepostRequest request) throws Exception {
         mailingService.runMailingBatch(request.getJobName(), request.getSubject(), request.getReportMessage());
         return ResponseEntity.noContent().build();
     }

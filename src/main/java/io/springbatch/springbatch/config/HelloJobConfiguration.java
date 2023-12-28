@@ -37,7 +37,6 @@ public class HelloJobConfiguration {
     public Job mailJob(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
         return new JobBuilder("mailJob", jobRepository)
                 .start(helloStep1(jobRepository, platformTransactionManager))
-                .next(helloStep2(jobRepository, platformTransactionManager))
                 .build();
     }
 
@@ -84,16 +83,4 @@ public class HelloJobConfiguration {
 
     }
 
-    @Bean
-    public Step helloStep2(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
-        return new StepBuilder("helloStep2", jobRepository)
-                .tasklet((contribution, chunkContext) -> {
-                    System.out.println("=======================");
-                    System.out.println(" >> Step2 was executed");
-                    System.out.println("=======================");
-
-                    return RepeatStatus.FINISHED;
-                }, platformTransactionManager).build();
-
-    }
 }
