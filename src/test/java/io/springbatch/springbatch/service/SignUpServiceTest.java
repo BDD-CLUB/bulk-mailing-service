@@ -11,12 +11,6 @@ class SignUpServiceTest extends IntegrationTest {
     @Test
     @DisplayName("성공적으로 멤버가 저장되어야 한다.")
     void 성공적으로_멤버가_저장되어야_한다() {
-        Member member = Member.builder()
-                .name("ggang9")
-                .email("testggang9@gmail.com")
-                .pushAgree(true)
-                .build();
-
         signUpService.signUp("ggang9", "testggang9@gmail.com");
 
         em.flush();
@@ -26,6 +20,20 @@ class SignUpServiceTest extends IntegrationTest {
                 .orElseThrow();
 
         Assertions.assertThat(findMember.getName()).isEqualTo("ggang9");
+    }
+
+    @Test
+    @DisplayName("동일한 이름이 있다면 예외가 발생되어야 한다.")
+    void 동일한_이름이_있다면_예외가_발생되어야_한다() {
+        signUpService.signUp("ggang9", "testggang9@gmail.com");
+
+        em.flush();
+        em.clear();
+
+        Assertions.assertThatThrownBy(
+                () -> signUpService.signUp("ggang9", "otherggang9@gmail.com"),
+                "동일한 이름이 있습니다.",
+                RuntimeException.class);
     }
 
 }
