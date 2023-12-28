@@ -11,6 +11,7 @@ import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteExcep
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.Random;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MonthMailingService {
 

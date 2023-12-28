@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionAdvice {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> exception() {
+    public ResponseEntity<String> exception(Exception e) {
         return ResponseEntity.internalServerError()
-                .body("알 수 없는 오류");
+                .body("알 수 없는 오류" + e);
     }
 }

@@ -11,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Validated
 @RestController
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -22,8 +24,8 @@ public class SignController {
 
     @GetMapping
     public ResponseEntity<Page<MemberResponse>> findMembers(
-            @RequestParam(defaultValue = "0") @PositiveOrZero int page,
-            @RequestParam(defaultValue = "20") @PositiveOrZero @Max(40) int size
+            @RequestParam(defaultValue = "0", value = "page") @PositiveOrZero int page,
+            @RequestParam(defaultValue = "10", value = "size") @PositiveOrZero @Max(30) int size
     ) {
         return ResponseEntity.ok(memberService.findAllMember(PageRequest.of(page, size))
                 .map(MemberResponse::from));
