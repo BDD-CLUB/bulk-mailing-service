@@ -12,5 +12,4 @@ public class ExceptionAdvice {
         return ResponseEntity.internalServerError()
                 .body("알 수 없는 오류");
     }
-
 }

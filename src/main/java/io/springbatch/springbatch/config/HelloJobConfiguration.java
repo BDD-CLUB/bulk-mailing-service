@@ -24,6 +24,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.MailException;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
@@ -36,19 +37,21 @@ public class HelloJobConfiguration {
     @Bean
     public Job mailJob(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
         return new JobBuilder("mailJob", jobRepository)
-                .start(helloStep1(jobRepository, platformTransactionManager))
+                .start(sendMailStep(jobRepository, platformTransactionManager))
                 .build();
     }
 
     @Bean
-    public Step helloStep1(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
-        return new StepBuilder("helloStep1", jobRepository)
-                .<Member, Member>chunk(10, platformTransactionManager)
+    public Step sendMailStep(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
+        return new StepBuilder("sendMailStep", jobRepository)
+                .<Member, Member>chunk(20, platformTransactionManager)
                 .reader(mailItemReader())
                 .processor(mailItemProcessor(null, null))
                 .writer(mailItemWriter())
+                .faultTolerant()
+                .retryLimit(5)
+                .retry(MailException.class)
                 .build();
-
     }
 
     @Bean
@@ -65,11 +68,7 @@ public class HelloJobConfiguration {
 
     @Bean
     public ItemWriter<Member> mailItemWriter() {
-        return items -> {
-            for (Member member : items) {
-                System.out.println("Id :" + member.getId() + ", Name :" + member.getName() + ", Email :" + member.getEmail());
-            }
-        };
+        return items -> items.forEach(member -> System.out.println("Send to " + member.getEmail()));
     }
 
     @Bean
@@ -77,10 +76,8 @@ public class HelloJobConfiguration {
         return new JpaPagingItemReaderBuilder<Member>()
                 .name("memberMailReader")
                 .entityManagerFactory(this.entityManagerFactory)
-                .pageSize(10)
+                .pageSize(20)
                 .queryString("SELECT m FROM Member m")
                 .build();
-
     }
-
 }

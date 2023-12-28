@@ -28,13 +28,11 @@ public class MonthMailingService {
     public void runMailingBatch(String jobName, String subject, String reportMessage) throws Exception {
         final Job findJob = context.getBean(jobName, Job.class);
 
-        // 실제 운영에서는 startTime을 받을 것.
-        // 테스트에서는 LocalDate.now를 사용해서 현재 시간을 계속 받도록 함.
         Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         JobParameters jobParameter = new JobParametersBuilder()
                 .addDate("startTime", date)
-                .addString("randomStringForTest", generateRandomString())
+                .addString("randomStringForTest", generateRandomString()) // 실제 운영에서는 삭제할 것.
                 .addString("mailSubject", subject)
                 .addString("mailMessage", reportMessage)
                 .toJobParameters();

@@ -4,10 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -22,4 +23,11 @@ public class Member {
 
     @Column(name = "push_agree", nullable = false)
     private Boolean pushAgree;
+
+    @Builder
+    private Member(String name, String email, Boolean pushAgree) {
+        this.name = name;
+        this.email = email;
+        this.pushAgree = pushAgree;
+    }
 }
