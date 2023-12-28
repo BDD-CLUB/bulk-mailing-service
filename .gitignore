@@ -35,3 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+.appication.yml
+*.appication.yml
+._.appication.yml
+**/.appication.yml
+**/._.appication.yml
+src/main/resources/application.yml
