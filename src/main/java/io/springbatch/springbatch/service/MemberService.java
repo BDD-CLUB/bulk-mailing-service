@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class SignUpService {
+public class MemberService {
 
     private final MemberRepository memberRepository;
 
@@ -24,4 +24,11 @@ public class SignUpService {
                 .build());
     }
 
+    public void deleteMember(Long memberId) {
+        final Long findMemberId = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("해당하는 Id 값은 없습니다."))
+                .getId();
+
+        memberRepository.deleteById(findMemberId);
+    }
 }

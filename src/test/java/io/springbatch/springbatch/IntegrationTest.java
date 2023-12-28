@@ -1,7 +1,7 @@
 package io.springbatch.springbatch;
 
 import io.springbatch.springbatch.entity.MemberRepository;
-import io.springbatch.springbatch.service.SignUpService;
+import io.springbatch.springbatch.service.MemberService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class IntegrationTest {
 	protected MemberRepository memberRepository;
 
 	@SpyBean
-	protected SignUpService signUpService;
+	protected MemberService memberService;
 
 	@PersistenceContext
 	protected EntityManager em;
