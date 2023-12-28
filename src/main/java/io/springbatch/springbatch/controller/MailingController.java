@@ -22,7 +22,7 @@ public class MailingController {
     @PostMapping("/month-report")
     public ResponseEntity<Void> reportMonthSummary(@RequestBody MonthRepostRequest request) throws Exception {
 //        mailingService.runMailingBatch(request.getJobName(), request.getDate());
-        mailingService.runMailingBatch(request.getJobName());
+        mailingService.runMailingBatch(request.getJobName(), request.getSubject(), request.getReportMessage());
         return ResponseEntity.noContent().build();
     }
 }

@@ -25,7 +25,7 @@ public class MonthMailingService {
     private final ApplicationContext context;
     private final JobLauncher jobLauncher;
 
-    public void runMailingBatch(String jobName) throws Exception {
+    public void runMailingBatch(String jobName, String subject, String reportMessage) throws Exception {
         final Job findJob = context.getBean(jobName, Job.class);
 
         // 실제 운영에서는 startTime을 받을 것.
@@ -35,6 +35,8 @@ public class MonthMailingService {
         JobParameters jobParameter = new JobParametersBuilder()
                 .addDate("startTime", date)
                 .addString("randomStringForTest", generateRandomString())
+                .addString("mailSubject", subject)
+                .addString("mailMessage", reportMessage)
                 .toJobParameters();
 
         this.jobLauncher.run(findJob, jobParameter);
