@@ -24,7 +24,8 @@ public class MailingController {
 
     @PostMapping("/month-report")
     public ResponseEntity<Void> reportMonthSummary(@RequestBody @Valid MonthRepostRequest request) throws Exception {
-        mailingService.runMailingBatch(request.getJobName(), request.getSubject(), request.getReportMessage());
+        mailingService.runMailingBatch(request.getJobName(), request.getSubject(),
+                request.getReportMessage(), request.getPassword());
         return ResponseEntity.noContent().build();
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Random;
 
 @Service
@@ -26,7 +28,14 @@ public class MonthMailingService {
     private final ApplicationContext context;
     private final JobLauncher jobLauncher;
 
-    public void runMailingBatch(String jobName, String subject, String reportMessage) throws Exception {
+    @Value("${mailing.password}")
+    private String configPassword;
+
+    public void runMailingBatch(String jobName, String subject, String reportMessage, String password) throws Exception {
+        if (!Objects.equals(password, configPassword)) {
+            throw new RuntimeException("비밀번호가 일치하지 않습니다");
+        }
+
         final Job findJob = context.getBean(jobName, Job.class);
 
         Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());

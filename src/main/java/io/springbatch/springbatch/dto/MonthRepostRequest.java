@@ -21,4 +21,7 @@ public class MonthRepostRequest {
 
     @NotEmpty(message = "공지할 메시지를 입력해주세요.")
     private String reportMessage;
+
+    @NotEmpty(message = "비밀번호를 입력해주세요.")
+    private String password;
 }
