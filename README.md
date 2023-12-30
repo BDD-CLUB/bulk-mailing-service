@@ -1,6 +1,6 @@
 ## OverView
 
-Spring-Batch-Bulk-Mailing-Service는 Spring Batch 프레임워크를 기반으로 만든 대용량 메일 전송 시스템입니다.
+Spring-Batch-Bulk-Mailing-Service는 Spring Batch 프레임워크를 기반으로 만든 대량 메일 전송 시스템입니다.
 
 많은 사용자에게 일괄적으로 동일한 내용의 메일을 보낼 때 사용하면 됩니다. 청크 단위로 사용자에게 메일을 보내며 예상치 못한 예외가 발생해도 Retry 기능을 통해 메일 전송을 재시도 합니다. 간단한 포맷팅을
 지원하고 양식 또한 깔끔하고 정돈되어 있습니다.
@@ -193,6 +193,8 @@ CREATE TABLE `member_seq` (
 
 ~~~
 
+![테이블사진](https://github.com/02ggang9/02ggang9.github.io/blob/master/_posts/images/bdd/mail/reversing.png?raw=true)
+
 5. 포스트맨 사용
 
 - 회원 이름과 이메일 등록 (http://localhost:8080/member) POST 방식
@@ -214,3 +216,5 @@ CREATE TABLE `member_seq` (
   "password": "bdd1234"
 }
 ~~~
+
+![메일 이미지](https://github.com/02ggang9/02ggang9.github.io/blob/master/_posts/images/bdd/mail/%ED%85%9C%ED%94%8C%EB%A6%BF%EC%98%88%EC%8B%9C.png?raw=true)
