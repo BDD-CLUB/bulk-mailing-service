@@ -7,7 +7,7 @@ Spring-Batch-Bulk-Mailing-Service는 Spring Batch 프레임워크를 기반으�
 
 ## Quick Start Guide
 
-1. Docker를 사용해 MYSQL 설치
+### 1. Docker를 사용해 MYSQL 설치
 
 Spring-Batch는 데이터베이스에 로그를 남길 수 있는 테이블이 없으면 실행이 되지 않기 때문에 필수적으로 데이터베이스를 설치 해야 합니다.
 
@@ -28,13 +28,13 @@ services:
 
 docker-compose.yml 파일 생성 후 docker-compose up 명령어를 사용해 도커 실행
 
-2. 프로젝트 clone
+### 2. 프로젝트 clone
 
 ~~~
 git clone https://github.com/02ggang9/Spring-Batch-Bulk-Mailing-Service.git
 ~~~
 
-3. application.yml 파일 추가
+### 3. application.yml 파일 추가
 
 데이터베이스 연결과 이메일 연동, API 사용을 위한 패스워드를 설정하기 위해서 yml 파일을 추가합니다.
 
@@ -75,7 +75,7 @@ spring:
 mailing.password: "" # fix
 ~~~
 
-4. Database Table 생성
+### 4. Database Table 생성
 
 위의 설명대로 DB에 로그를 남기기 위한 테이블이 있어야 하며, 생성하기 위한 SQL 문은 아래와 같습니다.
 
@@ -195,7 +195,7 @@ CREATE TABLE `member_seq` (
 
 ![테이블사진](https://github.com/02ggang9/02ggang9.github.io/blob/master/_posts/images/bdd/mail/reversing.png?raw=true)
 
-5. 포스트맨 사용
+### 5. 포스트맨 사용
 
 - 회원 이름과 이메일 등록 (http://localhost:8080/member) POST 방식
 
@@ -218,3 +218,30 @@ CREATE TABLE `member_seq` (
 ~~~
 
 ![메일 이미지](https://github.com/02ggang9/02ggang9.github.io/blob/master/_posts/images/bdd/mail/%ED%85%9C%ED%94%8C%EB%A6%BF%EC%98%88%EC%8B%9C.png?raw=true)
+
+## Customizing
+
+### 메일 상단의 배너 수정 방법
+
+1. springbatch > service > EmailService 이동
+2. "<img" 키워드 검색 (Command + F) 첫번째 <img 태그의 src를 수정
+
+### 하단의 이미지 클릭시 이동되는 경로 수정
+
+1. springbatch > service > EmailService 이동
+2. "<img" 키워드 검색 (Command + F) 2,3,4 번째 <img 태그의 src를 수정
+
+## Performance
+
+측정중..
+
+## Update
+
+### 2023.12.30
+
+MVP 모델 업로드 및 README 작성
+
+## License
+
+Spring-Batch-Bulk-Mailing-Service는 MIT 라이센스에 따라 사용할 수 있습니다. 자세한 내용은 LICENSE 파일을 참조해주세요.
+
