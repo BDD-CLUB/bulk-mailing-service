@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
@@ -18,18 +19,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/sign-up").permitAll()
-                        .requestMatchers("/**").hasRole("USER")
+                        .requestMatchers("/", "login").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/sign-in")
+                        .loginPage("/login")
                         .defaultSuccessUrl("/")
-                        .failureHandler(((request, response, exception) -> response.sendRedirect("/sign-in")))
+                        .failureHandler(((request, response, exception) -> response.sendRedirect("/login")))
+                        .permitAll()
                 )
                 .exceptionHandling(exception -> exception
                         .accessDeniedHandler(filterExceptionHandler)
                 )
                 .build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers("/**");
     }
 
 }
