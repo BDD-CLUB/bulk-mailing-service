@@ -10,12 +10,14 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Validated
-@RestController
+@Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
 public class SignController {
@@ -31,8 +33,13 @@ public class SignController {
                 .map(MemberResponse::from));
     }
 
-    @PostMapping
-    public ResponseEntity<String> signUp(@RequestBody @Valid SignUpRequest request) {
+    @GetMapping("/sign-up")
+    public String signUpPage() {
+        return "signUp";
+    }
+
+    @PostMapping("/sign-up")
+    public ResponseEntity<Void> signUp(@RequestBody @Valid SignUpRequest request) {
         memberService.signUp(
                 request.getName(),
                 request.getMemberId(),
@@ -40,7 +47,7 @@ public class SignController {
                 request.getEmail()
         );
 
-        return ResponseEntity.ok("생성완료");
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping

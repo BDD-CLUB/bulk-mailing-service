@@ -1,9 +1,7 @@
 package io.springbatch.springbatch.member.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import io.springbatch.springbatch.member.entity.password.Password;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -21,8 +19,8 @@ public class Member {
     @Column(name = "member_id", nullable = false)
     private String memberId;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Embedded
+    private Password password;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -36,7 +34,7 @@ public class Member {
         this.id = id;
         this.name = name;
         this.memberId = memberId;
-        this.password = password;
+        this.password = Password.from(password);
         this.email = email;
         this.pushAgree = pushAgree;
     }
