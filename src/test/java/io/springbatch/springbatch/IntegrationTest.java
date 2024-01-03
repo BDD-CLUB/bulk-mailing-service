@@ -1,7 +1,7 @@
 package io.springbatch.springbatch;
 
-import io.springbatch.springbatch.entity.MemberRepository;
-import io.springbatch.springbatch.service.MemberService;
+import io.springbatch.springbatch.member.entity.MemberRepository;
+import io.springbatch.springbatch.member.service.MemberService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;

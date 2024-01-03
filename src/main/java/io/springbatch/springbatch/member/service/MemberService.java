@@ -1,15 +1,12 @@
-package io.springbatch.springbatch.service;
+package io.springbatch.springbatch.member.service;
 
-import io.springbatch.springbatch.dto.MemberResponse;
-import io.springbatch.springbatch.entity.Member;
-import io.springbatch.springbatch.entity.MemberRepository;
+import io.springbatch.springbatch.member.entity.Member;
+import io.springbatch.springbatch.member.entity.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)

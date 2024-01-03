@@ -1,4 +1,4 @@
-package io.springbatch.springbatch.global;
+package io.springbatch.springbatch.config.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

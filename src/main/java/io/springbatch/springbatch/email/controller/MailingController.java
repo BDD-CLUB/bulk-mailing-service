@@ -1,12 +1,9 @@
-package io.springbatch.springbatch.controller;
+package io.springbatch.springbatch.email.controller;
 
-import io.springbatch.springbatch.dto.MonthRepostRequest;
-import io.springbatch.springbatch.service.MonthMailingService;
+import io.springbatch.springbatch.email.dto.MonthRepostRequest;
+import io.springbatch.springbatch.email.service.MonthMailingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;

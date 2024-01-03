@@ -1,4 +1,4 @@
-package io.springbatch.springbatch.member;
+package io.springbatch.springbatch.member.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

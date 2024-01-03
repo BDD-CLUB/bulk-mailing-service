@@ -1,9 +1,9 @@
-package io.springbatch.springbatch.controller;
+package io.springbatch.springbatch.member.controller;
 
-import io.springbatch.springbatch.dto.DeleteMemberRequest;
-import io.springbatch.springbatch.dto.MemberResponse;
-import io.springbatch.springbatch.dto.SignUpRequest;
-import io.springbatch.springbatch.service.MemberService;
+import io.springbatch.springbatch.member.dto.DeleteMemberRequest;
+import io.springbatch.springbatch.member.dto.MemberResponse;
+import io.springbatch.springbatch.member.dto.SignUpRequest;
+import io.springbatch.springbatch.member.service.MemberService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.PositiveOrZero;

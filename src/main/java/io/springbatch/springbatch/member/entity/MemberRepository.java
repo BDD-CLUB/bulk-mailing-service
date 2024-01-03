@@ -1,5 +1,6 @@
-package io.springbatch.springbatch.entity;
+package io.springbatch.springbatch.member.entity;
 
+import io.springbatch.springbatch.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
