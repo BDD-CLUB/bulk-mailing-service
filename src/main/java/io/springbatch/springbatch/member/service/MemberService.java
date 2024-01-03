@@ -2,6 +2,7 @@ package io.springbatch.springbatch.member.service;
 
 import io.springbatch.springbatch.member.entity.Member;
 import io.springbatch.springbatch.member.entity.MemberRepository;
+import io.springbatch.springbatch.member.entity.password.Password;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,8 +26,9 @@ public class MemberService {
         memberRepository.save(Member.builder()
                 .name(name)
                 .memberId(memberId)
-                .password(password)
+                .password(Password.from(password))
                 .email(email)
+                .role(Member.MemberRoleType.ROLE_USER)
                 .pushAgree(true)
                 .build());
     }

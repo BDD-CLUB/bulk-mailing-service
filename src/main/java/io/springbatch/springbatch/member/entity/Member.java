@@ -25,17 +25,33 @@ public class Member {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "member_role", nullable = false)
+    private MemberRoleType role;
+
     @Column(name = "push_agree", nullable = false)
     private Boolean pushAgree;
 
-
     @Builder
-    public Member(Long id, String name, String memberId, String password, String email, Boolean pushAgree) {
+    public Member(Long id, String name, String memberId, Password password, String email, MemberRoleType role, Boolean pushAgree) {
         this.id = id;
         this.name = name;
         this.memberId = memberId;
-        this.password = Password.from(password);
+        this.password = password;
         this.email = email;
+        this.role = role;
         this.pushAgree = pushAgree;
     }
+
+    @Getter
+    public enum MemberRoleType {
+        ROLE_ADMIN(1),
+        ROLE_USER(2);
+
+        private final long id;
+
+        MemberRoleType(long id) {
+            this.id = id;
+        }
+    }
+
 }
