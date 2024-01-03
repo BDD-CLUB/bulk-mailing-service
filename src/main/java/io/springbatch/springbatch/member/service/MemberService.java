@@ -16,7 +16,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public void signUp(final String name, final String email) {
+    public void signUp(final String name, final String memberId, final String password, final String email) {
         memberRepository.findByName(name)
                 .ifPresent((member) -> {
                     throw new RuntimeException(member.getName() + "은 이미 있습니다.");
@@ -24,6 +24,8 @@ public class MemberService {
 
         memberRepository.save(Member.builder()
                 .name(name)
+                .memberId(memberId)
+                .password(password)
                 .email(email)
                 .pushAgree(true)
                 .build());

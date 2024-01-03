@@ -33,7 +33,12 @@ public class SignController {
 
     @PostMapping
     public ResponseEntity<String> signUp(@RequestBody @Valid SignUpRequest request) {
-        memberService.signUp(request.getName(), request.getEmail());
+        memberService.signUp(
+                request.getName(),
+                request.getMemberId(),
+                request.getPassword(),
+                request.getEmail()
+        );
 
         return ResponseEntity.ok("생성완료");
     }
