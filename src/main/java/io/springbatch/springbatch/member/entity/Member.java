@@ -25,6 +25,7 @@ public class Member {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "member_role", nullable = false)
     private MemberRoleType role;
 

@@ -3,6 +3,7 @@ package io.springbatch.springbatch.member.service;
 import io.springbatch.springbatch.member.entity.Member;
 import io.springbatch.springbatch.member.entity.MemberRepository;
 import io.springbatch.springbatch.member.entity.password.Password;
+import io.springbatch.springbatch.member.entity.password.PasswordFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
+    public void signIn(final String memberId, final String rawPassword) {
+        Member findMember = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new RuntimeException(memberId + "는 없는 계정입니다."));
+
+        if (findMember.getPassword().isWrongPassword(rawPassword)) {
+            throw new RuntimeException(rawPassword + "는 잘못된 비밀번호 입니다.");
+        }
+
+        System.out.println("로그인 성공");
+    }
 
     @Transactional
     public void signUp(final String name, final String memberId, final String password, final String email) {

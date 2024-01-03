@@ -17,4 +17,8 @@ public class Password {
     public static Password from(String rawPassword) {
         return new Password(PasswordFactory.getInstance().encode(rawPassword));
     }
+
+    public boolean isWrongPassword(String rawPassword) {
+        return !PasswordFactory.getInstance().matches(rawPassword, this.password);
+    }
 }
