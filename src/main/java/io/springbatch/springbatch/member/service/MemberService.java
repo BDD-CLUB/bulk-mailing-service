@@ -30,7 +30,7 @@ public class MemberService {
             throw new RuntimeException(rawPassword + "는 잘못된 비밀번호 입니다.");
         }
 
-        authCookieService.setNewCookie(String.valueOf(findMember.getMemberId()), findMember.getRole().name(),
+        authCookieService.setNewCookie(String.valueOf(findMember.getId()), findMember.getRole().name(),
                 request.getHeader(HttpHeaders.USER_AGENT), response);
 
         System.out.println("로그인 성공");
