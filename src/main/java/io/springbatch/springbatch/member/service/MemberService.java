@@ -4,9 +4,12 @@ import io.springbatch.springbatch.member.entity.Member;
 import io.springbatch.springbatch.member.entity.MemberRepository;
 import io.springbatch.springbatch.member.entity.password.Password;
 import io.springbatch.springbatch.member.entity.password.PasswordFactory;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +19,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final AuthCookieService authCookieService;
 
-    public void signIn(final String memberId, final String rawPassword) {
+    @Transactional
+    public void signIn(final String memberId, final String rawPassword, HttpServletRequest request, HttpServletResponse response) {
         Member findMember = memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new RuntimeException(memberId + "는 없는 계정입니다."));
 
         if (findMember.getPassword().isWrongPassword(rawPassword)) {
             throw new RuntimeException(rawPassword + "는 잘못된 비밀번호 입니다.");
         }
+
+        authCookieService.setNewCookie(String.valueOf(findMember.getMemberId()), findMember.getRole().name(),
+                request.getHeader(HttpHeaders.USER_AGENT), response);
 
         System.out.println("로그인 성공");
     }

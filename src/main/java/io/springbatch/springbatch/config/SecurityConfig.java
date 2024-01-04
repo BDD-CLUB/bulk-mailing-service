@@ -19,13 +19,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "login", "sign-up").permitAll()
+                        .requestMatchers("/", "sign-in", "sign-up").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/login")
+                        .loginPage("/sign-in")
                         .defaultSuccessUrl("/")
-                        .failureHandler(((request, response, exception) -> response.sendRedirect("/login")))
+                        .failureHandler(((request, response, exception) -> response.sendRedirect("/sign-in")))
                         .permitAll()
                 )
                 .exceptionHandling(exception -> exception
