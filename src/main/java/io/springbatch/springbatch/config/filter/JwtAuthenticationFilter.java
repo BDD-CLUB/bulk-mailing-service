@@ -5,7 +5,10 @@ import io.jsonwebtoken.Jwts;
 import io.springbatch.springbatch.config.exception.EmptyJwtException;
 import io.springbatch.springbatch.global.jwt.JwtTokenFactory;
 import io.springbatch.springbatch.global.jwt.JwtType;
+import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,31 +17,30 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 import java.util.Arrays;
 
 import static io.springbatch.springbatch.config.filter.JwtAuthenticationProvider.getJwtAccessToken;
 
-public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+@RequiredArgsConstructor
+public class JwtAuthenticationFilter extends GenericFilterBean {
+
+    private final JwtAuthenticationProvider jwtAuthenticationProvider;
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        String jwtAccessToken = getJwtAccessToken(httpRequest);
 
-        if (!request.getMethod().equals("POST")) {
-            throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
-        }
+        Authentication authentication = jwtAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(jwtAccessToken, ""));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final String jwtAccessToken = getJwtAccessToken(request);
-
-
-        UsernamePasswordAuthenticationToken authRequest = UsernamePasswordAuthenticationToken.unauthenticated(jwtAccessToken, "");
-        setDetails(request, authRequest);
-        return getAuthenticationManager().authenticate(authRequest);
-
+        chain.doFilter(request, response);
     }
-
 
 }
