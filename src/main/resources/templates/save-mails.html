@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Email List</title>
+  <link href="/css/save-mails.css" rel="stylesheet">
+</head>
+<body>
+<div class="mail-container">
+  <ul>
+    <li th:each="mail : ${mails}">
+      <a th:href="@{'/admin/mail/' + ${mail.id}}" th:text="${mail.title}">Email Title</a>
+    </li>
+  </ul>
+</div>
+</body>
+</html>
