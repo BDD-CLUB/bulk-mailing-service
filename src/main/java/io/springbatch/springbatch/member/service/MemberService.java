@@ -1,5 +1,6 @@
 package io.springbatch.springbatch.member.service;
 
+import io.springbatch.springbatch.member.dto.response.FindAllMemberResponse;
 import io.springbatch.springbatch.member.entity.Member;
 import io.springbatch.springbatch.member.entity.MemberRepository;
 import io.springbatch.springbatch.member.entity.password.Password;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -64,5 +67,9 @@ public class MemberService {
 
     public Page<Member> findAllMember(Pageable pageable) {
         return memberRepository.findAll(pageable);
+    }
+
+    public List<FindAllMemberResponse> findMembers() {
+        return FindAllMemberResponse.from(memberRepository.findAll());
     }
 }

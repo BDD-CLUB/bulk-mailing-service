@@ -1,4 +1,4 @@
-package io.springbatch.springbatch.member.dto;
+package io.springbatch.springbatch.member.dto.response;
 
 import io.springbatch.springbatch.member.entity.Member;
 import lombok.AccessLevel;

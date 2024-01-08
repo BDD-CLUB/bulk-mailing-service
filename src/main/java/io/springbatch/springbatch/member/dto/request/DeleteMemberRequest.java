@@ -1,4 +1,4 @@
-package io.springbatch.springbatch.member.dto;
+package io.springbatch.springbatch.member.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

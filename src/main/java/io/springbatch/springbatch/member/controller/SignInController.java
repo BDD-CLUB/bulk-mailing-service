@@ -1,6 +1,6 @@
 package io.springbatch.springbatch.member.controller;
 
-import io.springbatch.springbatch.member.dto.SignInRequest;
+import io.springbatch.springbatch.member.dto.request.SignInRequest;
 import io.springbatch.springbatch.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
