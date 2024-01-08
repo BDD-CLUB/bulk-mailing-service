@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,13 +31,13 @@ public class MailController {
         return "save-mail";
     }
 
-    @ResponseBody
     @PostMapping("/mail")
     public ResponseEntity<String> saveMail(@RequestBody @Valid SaveMailRequest request) {
-        log.info("title = {}, body = {}", request.getTitle(), request.getText());
         mailService.saveMail(request.getTitle(), request.getText());
 
-        return ResponseEntity.ok("저장 완료");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "/admin/mails");
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @GetMapping("/mails")
