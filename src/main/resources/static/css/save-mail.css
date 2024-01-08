@@ -5,6 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 .container {
@@ -12,6 +13,15 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 90%; /* Set width to 90% of the screen */
+    max-width: 800px; /* Maximum width */
+    height: 90%; /* Set height to 90% of the screen */
+    max-height: 600px; /* Maximum height */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Make content stack vertically */
+    justify-content: center;
+    align-items: center;
 }
 
 input, textarea {
@@ -20,6 +30,7 @@ input, textarea {
     margin-bottom: 10px;
     border: 1px solid #d3d3d3;
     border-radius: 4px;
+    resize: none; /* Prevent resizing */
 }
 
 button {
@@ -37,4 +48,14 @@ button:hover {
 
 textarea {
     height: 100px;
+}
+
+.title, .text {
+    width: 80%; /* Set the title and text width to 80% of the container */
+    margin: 0 auto; /* Center the title and text horizontally */
+}
+
+.title {
+    font-size: 2em; /* Adjust the font size as needed */
+    text-align: center; /* Center-align the title */
 }

@@ -1,4 +1,4 @@
-package io.springbatch.springbatch.email.dto;
+package io.springbatch.springbatch.email.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

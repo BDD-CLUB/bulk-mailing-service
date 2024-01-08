@@ -1,6 +1,6 @@
 package io.springbatch.springbatch.email.controller;
 
-import io.springbatch.springbatch.email.dto.MonthRepostRequest;
+import io.springbatch.springbatch.email.dto.request.MonthRepostRequest;
 import io.springbatch.springbatch.email.service.MonthMailingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
