@@ -1,7 +1,6 @@
 package io.springbatch.springbatch.config;
 
 import io.springbatch.springbatch.config.exception.FilterExceptionHandler;
-import io.springbatch.springbatch.config.filter.JwtAuthenticationProvider;
 import io.springbatch.springbatch.global.jwt.JwtTokenFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -20,16 +20,17 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final FilterExceptionHandler filterExceptionHandler;
+//    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtTokenFactory jwtTokenFactory;
 
-    @Bean
-    public AuthenticationManager authenticationManager() {
-        JwtAuthenticationProvider jwtAuthenticationProvider = new JwtAuthenticationProvider(jwtTokenFactory);
-
-        ProviderManager manager = new ProviderManager(jwtAuthenticationProvider);
-        manager.setEraseCredentialsAfterAuthentication(false);
-        return manager;
-    }
+//    @Bean
+//    public AuthenticationManager authenticationManager() {
+//        JwtAuthenticationProvider jwtAuthenticationProvider = new JwtAuthenticationProvider(jwtTokenFactory);
+//
+//        ProviderManager manager = new ProviderManager(jwtAuthenticationProvider);
+//        manager.setEraseCredentialsAfterAuthentication(false);
+//        return manager;
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -46,6 +47,7 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception
                         .accessDeniedHandler(filterExceptionHandler)
                 )
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

@@ -20,27 +20,28 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 import java.util.Arrays;
 
-import static io.springbatch.springbatch.config.filter.JwtAuthenticationProvider.getJwtAccessToken;
 
-@RequiredArgsConstructor
-public class JwtAuthenticationFilter extends GenericFilterBean {
-
-    private final JwtAuthenticationProvider jwtAuthenticationProvider;
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        String jwtAccessToken = getJwtAccessToken(httpRequest);
-
-        Authentication authentication = jwtAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(jwtAccessToken, ""));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        chain.doFilter(request, response);
-    }
-
-}
+//@Component
+//@RequiredArgsConstructor
+//public class JwtAuthenticationFilter extends GenericFilterBean {
+//
+//    private final JwtAuthenticationProvider jwtAuthenticationProvider;
+//
+//    @Override
+//    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+//        HttpServletRequest httpRequest = (HttpServletRequest) request;
+//        String jwtAccessToken = getJwtAccessToken(httpRequest);
+//
+//        Authentication authentication = jwtAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(jwtAccessToken, ""));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        chain.doFilter(request, response);
+//    }
+//
+//}

@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Validated
 @Controller
 @RequestMapping("/member")
@@ -35,11 +37,14 @@ public class SignController {
 
     @GetMapping("/sign-up")
     public String signUpPage() {
+        log.info("GET login");
         return "signUp";
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<Void> signUp(@RequestBody @Valid SignUpRequest request) {
+        log.info("POST login");
+
         memberService.signUp(
                 request.getName(),
                 request.getMemberId(),
