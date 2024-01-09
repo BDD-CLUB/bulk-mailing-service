@@ -30,4 +30,9 @@ public class Mail {
         this.title = title;
         this.message = message;
     }
+
+    public void update(String title, String message) {
+        this.title = title;
+        this.message = message;
+    }
 }

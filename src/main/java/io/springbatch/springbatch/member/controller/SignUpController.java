@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
-public class SignController {
+public class SignUpController {
 
     private final MemberService memberService;
 
@@ -37,14 +37,11 @@ public class SignController {
 
     @GetMapping("/sign-up")
     public String signUpPage() {
-        log.info("GET login");
         return "signUp";
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<Void> signUp(@RequestBody @Valid SignUpRequest request) {
-        log.info("POST login");
-
         memberService.signUp(
                 request.getName(),
                 request.getMemberId(),

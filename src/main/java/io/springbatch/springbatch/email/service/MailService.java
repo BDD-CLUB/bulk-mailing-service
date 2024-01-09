@@ -34,4 +34,12 @@ public class MailService {
                 .toList();
 
     }
+
+    @Transactional
+    public void updateMail(Long mailId, String title, String message) {
+        Mail findMail = mailRepository.findById(mailId)
+                .orElseThrow();
+
+        findMail.update(title, message);
+    }
 }

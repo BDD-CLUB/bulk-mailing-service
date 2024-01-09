@@ -40,12 +40,21 @@ public class MailController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
+    @PutMapping("/mail/{mailId}")
+    public ResponseEntity<String> updateMail(
+            @RequestBody @Valid SaveMailRequest request,
+            @PathVariable Long mailId
+    ) {
+        mailService.updateMail(mailId, request.getTitle(), request.getText());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "/admin/mails");
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
+
     @GetMapping("/mails")
     public String mailsForm(Model model) {
         List<MailsResponse> mails = mailService.findMails();
-
-        log.info("mails = {}", mails.toString());
-
         model.addAttribute("mails", mails);
         return "save-mails";
     }
