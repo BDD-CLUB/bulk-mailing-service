@@ -1,6 +1,6 @@
-package io.springbatch.springbatch.member.dto.response;
+package io.springbatch.springbatch.bdd.member.dto.response;
 
-import io.springbatch.springbatch.member.entity.Member;
+import io.springbatch.springbatch.bdd.member.entity.Member;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

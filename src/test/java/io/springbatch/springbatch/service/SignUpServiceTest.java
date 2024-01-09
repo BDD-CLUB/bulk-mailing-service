@@ -1,7 +1,7 @@
 package io.springbatch.springbatch.service;
 
 import io.springbatch.springbatch.IntegrationTest;
-import io.springbatch.springbatch.member.entity.Member;
+import io.springbatch.springbatch.bdd.member.entity.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package io.springbatch.springbatch.member.entity;
+package io.springbatch.springbatch.bdd.member.entity;
 
 import io.springbatch.springbatch.member.entity.password.Password;
 import jakarta.persistence.*;

@@ -15,12 +15,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
-@EnableWebSecurity
-@Configuration
+//@EnableWebSecurity
+//@Configuration
 public class SecurityConfig {
 
     private final FilterExceptionHandler filterExceptionHandler;
-//    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    //    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtTokenFactory jwtTokenFactory;
 
 //    @Bean
@@ -36,7 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "sign-in", "sign-up").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll() // FIX
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/sign-in")

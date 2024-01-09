@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Save Member</title>
+    <link href="/css/save-member.css" rel="stylesheet">
+</head>
+<body>
+<div class="member-form-container">
+    <form id="memberForm">
+        <input type="text" id="nickname" placeholder="Nickname" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('memberForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var memberData = {
+            nickname: document.getElementById('nickname').value,
+            email: document.getElementById('email').value
+        };
+
+        fetch('/member', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(memberData)
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+</body>
+</html>
