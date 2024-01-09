@@ -14,23 +14,6 @@
     </form>
 </div>
 
-<script>
-    document.getElementById('memberForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        var memberData = {
-            nickname: document.getElementById('nickname').value,
-            email: document.getElementById('email').value
-        };
-
-        fetch('/member', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(memberData)
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-    });
-</script>
+<script src="member.js"></script>
 </body>
 </html>

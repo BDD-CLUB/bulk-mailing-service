@@ -4,6 +4,7 @@ package io.springbatch.springbatch;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 /*
  * @EnableBatchProcessing -> 스프링 배치가 작당호가 위해 선언해야 하는 어노테이션
@@ -25,7 +26,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * */
 
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 //@EnableBatchProcessing
 public class SpringBatchApplication {
 

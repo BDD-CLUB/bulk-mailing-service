@@ -8,7 +8,7 @@ import lombok.Getter;
 public class SaveMemberRequest {
 
     @NotEmpty(message = "닉네임을 입력해주세요.")
-    private String nickName;
+    private String nickname;
 
     @Email(message = "올바른 이메일을 입력해주세요.")
     private String email;

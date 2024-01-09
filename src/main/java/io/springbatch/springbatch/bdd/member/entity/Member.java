@@ -16,31 +16,13 @@ public class Member {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "member_id", nullable = false)
-    private String memberId;
-
-    @Embedded
-    private Password password;
-
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "member_role", nullable = false)
-    private MemberRoleType role;
-
-    @Column(name = "push_agree", nullable = false)
-    private Boolean pushAgree;
-
     @Builder
-    public Member(Long id, String name, String memberId, Password password, String email, MemberRoleType role, Boolean pushAgree) {
-        this.id = id;
+    public Member(String name, String email) {
         this.name = name;
-        this.memberId = memberId;
-        this.password = password;
         this.email = email;
-        this.role = role;
-        this.pushAgree = pushAgree;
     }
 
     @Getter

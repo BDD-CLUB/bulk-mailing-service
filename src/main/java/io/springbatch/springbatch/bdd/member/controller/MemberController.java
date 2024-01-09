@@ -4,14 +4,18 @@ import io.springbatch.springbatch.bdd.member.dto.request.SaveMemberRequest;
 import io.springbatch.springbatch.bdd.member.dto.response.FindAllMemberResponse;
 import io.springbatch.springbatch.bdd.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -31,15 +35,18 @@ public class MemberController {
     }
 
     @GetMapping("/member")
-    public String saveMemberForm(HttpServletRequest request) {
-        log.info(request.toString());
+    public String saveMemberForm() {
         return "member";
     }
 
     @PostMapping("/member")
-    public String saveMember(@RequestBody SaveMemberRequest request) {
-
-        return "ok";
+    @ResponseBody
+    public ResponseEntity<Void> saveMember(@RequestBody @Valid SaveMemberRequest request) {
+        memberService.saveMember(request.getNickname(), request.getEmail());
+        log.info("{}, {}", request.getNickname(), request.getEmail());
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
     }
 
 

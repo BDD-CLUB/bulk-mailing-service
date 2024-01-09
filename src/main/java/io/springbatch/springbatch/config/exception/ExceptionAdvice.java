@@ -12,4 +12,10 @@ public class ExceptionAdvice {
         return ResponseEntity.internalServerError()
                 .body("알 수 없는 오류" + e);
     }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<String> businessException(Exception e) {
+        return ResponseEntity.internalServerError()
+                .body("Business Exception: " + e);
+    }
 }

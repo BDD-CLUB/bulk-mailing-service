@@ -3,6 +3,7 @@ package io.springbatch.springbatch.bdd.member.service;
 import io.springbatch.springbatch.bdd.member.dto.response.FindAllMemberResponse;
 import io.springbatch.springbatch.bdd.member.entity.Member;
 import io.springbatch.springbatch.bdd.member.entity.MemberRepository;
+import io.springbatch.springbatch.config.exception.BusinessException;
 import io.springbatch.springbatch.member.entity.password.Password;
 import io.springbatch.springbatch.member.service.AuthCookieService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,39 +23,6 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final AuthCookieService authCookieService;
-
-    @Transactional
-    public void signIn(final String memberId, final String rawPassword, HttpServletRequest request, HttpServletResponse response) {
-        Member findMember = memberRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new RuntimeException(memberId + "는 없는 계정입니다."));
-
-        if (findMember.getPassword().isWrongPassword(rawPassword)) {
-            throw new RuntimeException(rawPassword + "는 잘못된 비밀번호 입니다.");
-        }
-
-        authCookieService.setNewCookie(String.valueOf(findMember.getId()), findMember.getRole().name(),
-                request.getHeader(HttpHeaders.USER_AGENT), response);
-
-        System.out.println("로그인 성공");
-    }
-
-    @Transactional
-    public void signUp(final String name, final String memberId, final String password, final String email) {
-        memberRepository.findByName(name)
-                .ifPresent((member) -> {
-                    throw new RuntimeException(member.getName() + "은 이미 있습니다.");
-                });
-
-        memberRepository.save(Member.builder()
-                .name(name)
-                .memberId(memberId)
-                .password(Password.from(password))
-                .email(email)
-                .role(Member.MemberRoleType.ROLE_USER)
-                .pushAgree(true)
-                .build());
-    }
 
     @Transactional
     public void deleteMember(final Long memberId) {
@@ -71,5 +39,16 @@ public class MemberService {
 
     public List<FindAllMemberResponse> findMembers() {
         return FindAllMemberResponse.from(memberRepository.findAll());
+    }
+
+    @Transactional
+    public void saveMember(final String nickName, final String email) {
+        memberRepository.findByEmail(email)
+                .orElseThrow(BusinessException::new);
+
+        memberRepository.save(Member.builder()
+                .name(nickName)
+                .email(email)
+                .build());
     }
 }
