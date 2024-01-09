@@ -1,8 +1,8 @@
-package io.springbatch.springbatch.email.service;
+package io.springbatch.springbatch.bdd.email.service;
 
-import io.springbatch.springbatch.email.dto.response.MailsResponse;
-import io.springbatch.springbatch.email.entity.Mail;
-import io.springbatch.springbatch.email.repository.MailRepository;
+import io.springbatch.springbatch.bdd.email.repository.MailRepository;
+import io.springbatch.springbatch.bdd.email.dto.response.MailsResponse;
+import io.springbatch.springbatch.bdd.email.entity.Mail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

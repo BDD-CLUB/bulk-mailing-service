@@ -1,4 +1,4 @@
-package io.springbatch.springbatch.email.service;
+package io.springbatch.springbatch.bdd.email.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;

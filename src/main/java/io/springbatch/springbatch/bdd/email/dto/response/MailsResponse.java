@@ -1,6 +1,6 @@
-package io.springbatch.springbatch.email.dto.response;
+package io.springbatch.springbatch.bdd.email.dto.response;
 
-import io.springbatch.springbatch.email.entity.Mail;
+import io.springbatch.springbatch.bdd.email.entity.Mail;
 import lombok.*;
 
 

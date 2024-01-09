@@ -1,61 +1,54 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f8f8f8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    color: #333;
     margin: 0;
-}
-
-.container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    width: 90%; /* Set width to 90% of the screen */
-    max-width: 800px; /* Maximum width */
-    height: 90%; /* Set height to 90% of the screen */
-    max-height: 600px; /* Maximum height */
-    box-sizing: border-box;
+    padding: 0;
     display: flex;
-    flex-direction: column; /* Make content stack vertically */
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
 }
 
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #d3d3d3;
-    border-radius: 4px;
-    resize: none; /* Prevent resizing */
+.main-container {
+    text-align: center;
+    width: 95%; /* Adjust width as needed */
+    max-width: 800px; /* Maximum width */
+    padding: 20px; /* Padding for internal spacing */
+    border: 2px solid #333; /* Border for the container */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #fff; /* White background for the container */
+    box-sizing: border-box; /* Include padding in width and height */
+    margin: 10px; /* Add margin for spacing from the edges */
 }
 
-button {
-    background-color: #c00;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #a00;
+input[type="text"], textarea {
+    width: 100%; /* Full width of the container */
+    padding: 12px; /* Slightly larger padding for better appearance */
+    margin-bottom: 10px; /* Margin at the bottom of each input */
+    border: 1px solid #333; /* Consistent border styling */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Readable font size */
+    box-sizing: border-box; /* Include padding in width */
 }
 
 textarea {
-    height: 100px;
+    height: 150px; /* Significantly larger height for textarea */
+    resize: vertical; /* Allow vertical resizing only */
 }
 
-.title, .text {
-    width: 80%; /* Set the title and text width to 80% of the container */
-    margin: 0 auto; /* Center the title and text horizontally */
+.main-button {
+    width: 100%; /* Full width button */
+    padding: 10px; /* Consistent padding with inputs */
+    border: 1px solid #333; /* Dark grey border */
+    border-radius: 4px;
+    background-color: #333; /* Dark grey button background */
+    color: white; /* White button text */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.title {
-    font-size: 2em; /* Adjust the font size as needed */
-    text-align: center; /* Center-align the title */
+.main-button:hover {
+    background-color: #555; /* Slightly lighter grey on hover */
 }

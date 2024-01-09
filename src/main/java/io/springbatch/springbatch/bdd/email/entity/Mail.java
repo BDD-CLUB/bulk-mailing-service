@@ -1,4 +1,4 @@
-package io.springbatch.springbatch.email.entity;
+package io.springbatch.springbatch.bdd.email.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

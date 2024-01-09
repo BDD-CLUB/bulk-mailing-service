@@ -6,7 +6,7 @@ document.getElementById('dataForm').addEventListener('submit', function (e) {
         text: document.getElementById('text').value
     };
 
-    fetch('/admin/mail', {
+    fetch('/news-mail', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

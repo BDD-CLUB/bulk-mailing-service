@@ -1,11 +1,12 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f8f8f8;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    color: #333;
 }
 
 .mail-container {
@@ -39,12 +40,6 @@ a:hover {
 
 p {
     margin: 5px 0;
-    color: #333;
     font-size: 16px; /* Adjust font size as needed */
     line-height: 1.5; /* Adjust line height for readability */
-}
-
-/* Center align the content within the container */
-ul, li {
-    text-align: center;
 }

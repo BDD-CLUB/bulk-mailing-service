@@ -1,7 +1,7 @@
 package io.springbatch.springbatch.config;
 
 import io.springbatch.springbatch.bdd.member.entity.Member;
-import io.springbatch.springbatch.email.service.EmailService;
+import io.springbatch.springbatch.bdd.email.service.EmailService;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;

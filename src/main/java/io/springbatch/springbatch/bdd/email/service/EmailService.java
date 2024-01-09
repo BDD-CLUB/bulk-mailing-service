@@ -1,4 +1,4 @@
-package io.springbatch.springbatch.email.service;
+package io.springbatch.springbatch.bdd.email.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
