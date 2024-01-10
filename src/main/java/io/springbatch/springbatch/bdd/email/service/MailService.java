@@ -42,15 +42,20 @@ public class MailService {
     @Transactional
     public void updateMail(Long mailId, String title, String message) {
         Mail findMail = mailRepository.findById(mailId)
-                .orElseThrow();
+                .orElseThrow(() -> new BusinessException(mailId + "에 해당하는 메일을 찾을 수 없습니다."));
 
         findMail.update(title, message);
     }
 
-    public String convertSaveMailMessage(Long mailId) {
+    public String convertSaveMailMessage(long mailId) {
         Mail findMail = mailRepository.findById(mailId)
-                .orElseThrow(() -> new BusinessException(mailId + "에 해당하는 메일을 찾을 수 없습니다"));
+                .orElseThrow(() -> new BusinessException(mailId + "에 해당하는 메일을 찾을 수 없습니다."));
 
         return mdFormatConverter.convert(findMail.getMessage());
+    }
+
+    public Mail findMail(long mailId) {
+        return mailRepository.findById(mailId)
+                .orElseThrow(() -> new BusinessException(mailId + "에 해당하는 메일을 찾을 수 없습니다"));
     }
 }

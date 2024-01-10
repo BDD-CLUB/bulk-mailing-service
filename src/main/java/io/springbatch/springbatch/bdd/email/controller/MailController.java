@@ -40,6 +40,15 @@ public class MailController {
     }
 
     @GetMapping("/news-mail/{mailId}")
+    public String updateMailForm(@PathVariable(name = "mailId") long mailId, Model model) {
+        Mail findMail = mailService.findMail(mailId);
+        model.addAttribute("title", findMail.getTitle());
+        model.addAttribute("message", findMail.getMessage());
+
+        return "update-mail";
+    }
+
+    @GetMapping("/news-mail/preview/{mailId}")
     public String savedMailForm(@PathVariable(name = "mailId") long mailId, Model model) {
         String savedForm = mailService.convertSaveMailMessage(mailId);
         model.addAttribute("message", savedForm);
@@ -48,10 +57,10 @@ public class MailController {
 
 
 
-    @PutMapping("/news-mail/{mailId}")
+    @PatchMapping("/news-mail/{mailId}")
     public ResponseEntity<String> updateMail(
             @RequestBody @Valid SaveMailRequest request,
-            @PathVariable Long mailId
+            @PathVariable(name = "mailId") Long mailId
     ) {
         mailService.updateMail(mailId, request.getTitle(), request.getText());
 

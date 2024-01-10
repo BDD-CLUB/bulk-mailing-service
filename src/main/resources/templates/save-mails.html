@@ -48,7 +48,7 @@
     <tr th:each="mail : ${mails}">
       <td th:text="${mail.id}">1</td> <!-- Display mail ID -->
       <td>
-        <a th:href="@{'/news-mail/' + ${mail.id}}" th:text="${mail.title}">Email Title</a>
+        <a th:href="@{'/news-mail/preview/' + ${mail.id}}" th:text="${mail.title}">Email Title</a>
       </td> <!-- Display mail title and link -->
     </tr>
     </tbody>
