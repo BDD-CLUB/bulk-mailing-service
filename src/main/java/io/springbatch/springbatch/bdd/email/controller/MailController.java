@@ -74,7 +74,7 @@ public class MailController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/news-mails");
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/news-mails")
