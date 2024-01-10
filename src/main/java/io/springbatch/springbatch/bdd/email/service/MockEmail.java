@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 
-@Component
 public class MockEmail implements JavaMailSender {
     @Override
     public MimeMessage createMimeMessage() {

@@ -27,7 +27,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
  * */
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-//@EnableBatchProcessing
+@EnableBatchProcessing
 public class SpringBatchApplication {
 
     public static void main(String[] args) {

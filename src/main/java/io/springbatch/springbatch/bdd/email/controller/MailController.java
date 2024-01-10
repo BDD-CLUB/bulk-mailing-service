@@ -7,6 +7,10 @@ import io.springbatch.springbatch.bdd.email.service.MailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
+import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,6 +86,12 @@ public class MailController {
         List<MailsResponse> mails = mailService.findMails();
         model.addAttribute("mails", mails);
         return "save-mails";
+    }
+
+    @PostMapping("/bulk-mail/{mailId}")
+    public ResponseEntity<Void> sendBulkMail(@PathVariable(name = "mailId") long mailId) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        mailService.sendBulkMail(mailId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

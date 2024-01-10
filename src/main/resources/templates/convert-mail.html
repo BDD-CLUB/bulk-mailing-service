@@ -80,8 +80,10 @@
     }
 
     function sendMail() {
-        // Send a POST request to /mail
-        fetch('/mail', {
+        var currentURL = window.location.href;
+        var mailId = currentURL.substring(currentURL.lastIndexOf('/') + 1);
+
+        fetch('/bulk-mail/' + mailId, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

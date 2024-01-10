@@ -4,6 +4,7 @@ import io.springbatch.springbatch.bdd.member.entity.Member;
 import io.springbatch.springbatch.bdd.email.service.EmailService;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.MailException;
 import org.springframework.transaction.PlatformTransactionManager;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class HelloJobConfiguration {
@@ -29,6 +31,7 @@ public class HelloJobConfiguration {
 
     @Bean
     public Job mailJob(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
+        log.info("mailJob Execute");
         return new JobBuilder("mailJob", jobRepository)
                 .start(sendMailStep(jobRepository, platformTransactionManager))
                 .build();
