@@ -2,6 +2,7 @@ package io.springbatch.springbatch.bdd.email.controller;
 
 import io.springbatch.springbatch.bdd.email.dto.request.SaveMailRequest;
 import io.springbatch.springbatch.bdd.email.dto.response.MailsResponse;
+import io.springbatch.springbatch.bdd.email.entity.Mail;
 import io.springbatch.springbatch.bdd.email.service.MailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,15 @@ public class MailController {
         headers.add("Location", "/news-mails");
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
+
+    @GetMapping("/news-mail/{mailId}")
+    public String savedMailForm(@PathVariable Long mailId, Model model) {
+        String savedForm = mailService.convertSaveMailMessage(mailId);
+        model.addAttribute("message", savedForm);
+        return "save-mail";
+    }
+
+
 
     @PutMapping("/news-mail/{mailId}")
     public ResponseEntity<String> updateMail(

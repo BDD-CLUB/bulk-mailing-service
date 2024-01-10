@@ -1,8 +1,11 @@
 package io.springbatch.springbatch.bdd.email.service;
 
+import io.springbatch.springbatch.bdd.email.entity.MailFormatConverter;
+import io.springbatch.springbatch.bdd.email.entity.MdFormatConverter;
 import io.springbatch.springbatch.bdd.email.repository.MailRepository;
 import io.springbatch.springbatch.bdd.email.dto.response.MailsResponse;
 import io.springbatch.springbatch.bdd.email.entity.Mail;
+import io.springbatch.springbatch.config.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +18,7 @@ import java.util.List;
 public class MailService {
 
     private final MailRepository mailRepository;
+    private final MdFormatConverter mdFormatConverter;
 
     @Transactional
     public void saveMail(String title, String message) {
@@ -41,5 +45,12 @@ public class MailService {
                 .orElseThrow();
 
         findMail.update(title, message);
+    }
+
+    public String convertSaveMailMessage(Long mailId) {
+        Mail findMail = mailRepository.findById(mailId)
+                .orElseThrow(() -> new BusinessException(mailId + "에 해당하는 메일을 찾을 수 없습니다"));
+
+        return mdFormatConverter.convert(findMail.getMessage());
     }
 }
