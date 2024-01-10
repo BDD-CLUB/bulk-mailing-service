@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class MdFormatConverter implements MailFormatConverter {
 
-    private static final Pattern TITLE_PATTERN = Pattern.compile("<br>### (.+?)<br>");
+    private static final Pattern TITLE_PATTERN = Pattern.compile("### (.+?)<br>");
     private static final Pattern IMG_PATTERN = Pattern.compile("!\\[.*?\\]\\((.*?)\\)");
 
     @Override

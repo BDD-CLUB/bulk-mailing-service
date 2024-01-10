@@ -40,10 +40,10 @@ public class MailController {
     }
 
     @GetMapping("/news-mail/{mailId}")
-    public String savedMailForm(@PathVariable Long mailId, Model model) {
+    public String savedMailForm(@PathVariable(name = "mailId") long mailId, Model model) {
         String savedForm = mailService.convertSaveMailMessage(mailId);
         model.addAttribute("message", savedForm);
-        return "save-mail";
+        return "convert-mail";
     }
 
 
