@@ -55,8 +55,6 @@ public class MailController {
         return "convert-mail";
     }
 
-
-
     @PatchMapping("/news-mail/{mailId}")
     public ResponseEntity<String> updateMail(
             @RequestBody @Valid SaveMailRequest request,
@@ -67,6 +65,16 @@ public class MailController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/news-mails");
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/news-mail/{mailId}")
+    public ResponseEntity<Void> deleteMail(@PathVariable(name = "mailId") long mailId) {
+        mailService.deleteMail(mailId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "/news-mails");
+
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/news-mails")

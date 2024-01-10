@@ -58,4 +58,9 @@ public class MailService {
         return mailRepository.findById(mailId)
                 .orElseThrow(() -> new BusinessException(mailId + "에 해당하는 메일을 찾을 수 없습니다"));
     }
+
+    @Transactional
+    public void deleteMail(long mailId) {
+        mailRepository.deleteById(mailId);
+    }
 }
