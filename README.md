@@ -266,7 +266,6 @@ ItemReader Performance
 | JpaPagingItemReader  | 100,000   | 60s  |
 | JdbcCursorItemReader | 100,000   | 5s   |
 
-
 ## License
 
 Spring-Batch-Bulk-Mailing-Service는 MIT 라이센스에 따라 사용할 수 있습니다. 자세한 내용은 LICENSE 파일을 참조해주세요.
@@ -277,13 +276,13 @@ Spring-Batch-Bulk-Mailing-Service는 MIT 라이센스에 따라 사용할 수 �
 
 MVP 모델 업로드 및 README 작성
 
-### 2024.01.10 v1.0.0
+### 2024.01.10 (v1.0.0)
 
 1. 마크다운 Heading 3, img 마크다운 태그를 지원하도록 수정
 
 2. 여러가지의 이미지를 직접 삽입할 수 있도록 수정
 
-### 2024.01.11 v1.0.1
+### 2024.01.11 (v1.0.1)
 
-1. mailItemReader를 JpaPagingItemReader에서 JdbcCursorItemReader로 수정
+1. mailItemReader를 JpaPagingItemReader에서 JdbcCursorItemReader로 수정 (데이터 10만개 기준으로 성능 12배 상승)
 
