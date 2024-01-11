@@ -17,12 +17,17 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.JdbcCursorItemReader;
+import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.MailException;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.sql.DataSource;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Configuration
@@ -31,6 +36,7 @@ public class MailJobConfiguration {
 
     private final MailJobParameterValidator mailJobParameterValidator;
     private final EntityManagerFactory entityManagerFactory;
+    private final DataSource dataSource;
     private final EmailService emailService;
 
     @Bean
@@ -45,9 +51,9 @@ public class MailJobConfiguration {
     @Bean
     public Step sendMailStep(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
         return new StepBuilder("sendMailStep", jobRepository)
-                .<Member, Member>chunk(20, platformTransactionManager)
+                .<Member, Member>chunk(1000, platformTransactionManager)
                 .reader(mailItemReader())
-                .processor(mailItemProcessor(null, null))
+//                .processor(mailItemProcessor(null, null))
                 .writer(mailItemWriter())
                 .faultTolerant()
                 .retryLimit(5)
@@ -69,16 +75,36 @@ public class MailJobConfiguration {
 
     @Bean
     public ItemWriter<Member> mailItemWriter() {
-        return items -> items.forEach(member -> System.out.println("Send to " + member.getEmail()));
+        return items -> {
+            items.forEach(member -> log.info("{}, time={}", member.getEmail(), LocalDateTime.now()));
+//            items.forEach(member -> System.out.println("Send to " + member.getEmail()));
+        };
     }
+
+//    @Bean
+//    public ItemReader<Member> mailItemReader() {
+//        log.info("itemReader {}", LocalDateTime.now());
+//
+//        return new JpaPagingItemReaderBuilder<Member>()
+//                .name("memberMailReader")
+//                .entityManagerFactory(this.entityManagerFactory)
+//                .pageSize(20)
+//                .queryString("SELECT m FROM Member m")
+//                .build();
+//    }
 
     @Bean
     public ItemReader<Member> mailItemReader() {
-        return new JpaPagingItemReaderBuilder<Member>()
-                .name("memberMailReader")
-                .entityManagerFactory(this.entityManagerFactory)
-                .pageSize(20)
-                .queryString("SELECT m FROM Member m")
+        log.info("itemReader {}", LocalDateTime.now());
+
+        return new JdbcCursorItemReaderBuilder<Member>()
+                .name("JdbcCursorItemReader")
+                .fetchSize(1000)
+                .sql("SELECT id, name, email FROM member")
+                .rowMapper((rs, rowNum) -> {
+                    return new Member(rs.getString(2), rs.getString(3));
+                })
+                .dataSource(dataSource)
                 .build();
     }
 }
