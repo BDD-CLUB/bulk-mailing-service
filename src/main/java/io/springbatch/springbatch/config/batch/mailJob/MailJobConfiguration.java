@@ -1,11 +1,13 @@
-package io.springbatch.springbatch.config;
+package io.springbatch.springbatch.config.batch.mailJob;
 
 import io.springbatch.springbatch.bdd.member.entity.Member;
 import io.springbatch.springbatch.bdd.email.service.EmailService;
+import io.springbatch.springbatch.config.batch.mailJob.validator.MailJobParameterValidator;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
@@ -27,6 +29,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @RequiredArgsConstructor
 public class MailJobConfiguration {
 
+    private final MailJobParameterValidator mailJobParameterValidator;
     private final EntityManagerFactory entityManagerFactory;
     private final EmailService emailService;
 
@@ -35,7 +38,7 @@ public class MailJobConfiguration {
         log.info("mailJob Execute");
         return new JobBuilder("mailJob", jobRepository)
                 .start(sendMailStep(jobRepository, platformTransactionManager))
-                .validator(new DefaultJobParametersValidator(new String[]{"mailSubject", "mailMessage"}, new String[]{"startTime", "randomStringForTest"}))
+                .validator(mailJobParameterValidator)
                 .build();
     }
 
