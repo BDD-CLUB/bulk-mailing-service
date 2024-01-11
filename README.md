@@ -233,6 +233,28 @@ CREATE TABLE `member_seq` (
 }
 ~~~
 
+~~~md
+### BDD Mailing Service 1차 테스트
+
+안녕하세요. 부산 개발 동아리 BDD입니다.
+
+BDD 뉴스레터를 이용해주시는 선배님들께 진심으로 감사드립니다.
+
+아래는 2024년 1월 BDD의 활동 내역들입니다.
+
+### 메인페이지 시안 작성
+
+![메인페이지 시안](https://file.notion.so/f/f/aaedcf79-6b31-4898-9a1f-5e2ad8ae925e/572fb2d5-3374-4e26-bd5f-65c17b11986f/%ED%94%84%EB%A6%AC%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%9814.png?id=1f34b78c-5b64-4797-bb6c-6bd69eeeb0c1&table=block&spaceId=aaedcf79-6b31-4898-9a1f-5e2ad8ae925e&expirationTimestamp=1704960000000&signature=01l0U7nCxzkknY-KQ0rQabOsdH3HVhDu8e3lA1cBMGE&downloadName=%ED%94%84%EB%A6%AC%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%9814.png)
+
+### 팀 페이지 디자이닝
+
+![팀 페이지 디자이닝](https://file.notion.so/f/f/aaedcf79-6b31-4898-9a1f-5e2ad8ae925e/e7925170-bd44-4099-8360-8a767d29c407/%ED%94%84%EB%A6%AC%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%9813.png?id=7517ebbd-d7cb-4992-af1f-7f6e623257e3&table=block&spaceId=aaedcf79-6b31-4898-9a1f-5e2ad8ae925e&expirationTimestamp=1704960000000&signature=f0LAF0CeWRpJ7CEwgDg562kWvFzfIU0EiZjaVDVTkSY&downloadName=%ED%94%84%EB%A6%AC%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%9813.png)
+
+앞으로도 저희 BDD를 많이 사랑해주세요. 
+
+감사합니다.
+~~~
+
 - 저장된 메일들을 조회(/news-mails) 후 title 클릭시 발송될 Mail Preview 제공
 
 ![테이블사진](https://github.com/02ggang9/02ggang9.github.io/blob/master/_posts/images/bdd/mail/quickStart/step5.png?raw=true)
