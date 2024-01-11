@@ -257,7 +257,19 @@ CREATE TABLE `member_seq` (
 
 ## Performance
 
-측정중..
+### v1.0.1
+
+ItemReader Performance
+
+| ItemReader 종류        | DB 데이터 개수 | 걸린시간 |
+|----------------------|-----------|------|
+| JpaPagingItemReader  | 100,000   | 60s  |
+| JdbcCursorItemReader | 100,000   | 5s   |
+
+
+## License
+
+Spring-Batch-Bulk-Mailing-Service는 MIT 라이센스에 따라 사용할 수 있습니다. 자세한 내용은 LICENSE 파일을 참조해주세요.
 
 ## Update
 
@@ -265,13 +277,13 @@ CREATE TABLE `member_seq` (
 
 MVP 모델 업로드 및 README 작성
 
-### 2024.01.10
+### 2024.01.10 v1.0.0
 
 1. 마크다운 Heading 3, img 마크다운 태그를 지원하도록 수정
 
 2. 여러가지의 이미지를 직접 삽입할 수 있도록 수정
 
-## License
+### 2024.01.11 v1.0.1
 
-Spring-Batch-Bulk-Mailing-Service는 MIT 라이센스에 따라 사용할 수 있습니다. 자세한 내용은 LICENSE 파일을 참조해주세요.
+1. mailItemReader를 JpaPagingItemReader에서 JdbcCursorItemReader로 수정
 
