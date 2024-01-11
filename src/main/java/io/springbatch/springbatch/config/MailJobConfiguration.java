@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -24,7 +25,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class HelloJobConfiguration {
+public class MailJobConfiguration {
 
     private final EntityManagerFactory entityManagerFactory;
     private final EmailService emailService;
@@ -34,6 +35,7 @@ public class HelloJobConfiguration {
         log.info("mailJob Execute");
         return new JobBuilder("mailJob", jobRepository)
                 .start(sendMailStep(jobRepository, platformTransactionManager))
+                .validator(new DefaultJobParametersValidator(new String[]{"mailSubject", "mailMessage"}, new String[]{"startTime", "randomStringForTest"}))
                 .build();
     }
 

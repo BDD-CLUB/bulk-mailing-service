@@ -23,7 +23,6 @@ public class EmailService {
     private final MdFormatConverter mdFormatConverter;
 
     public void sendEmail(String to, String subject, String text) throws MessagingException {
-        log.info("sendEmail");
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
