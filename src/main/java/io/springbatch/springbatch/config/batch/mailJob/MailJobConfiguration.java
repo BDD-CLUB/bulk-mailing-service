@@ -7,22 +7,21 @@ import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.integration.async.AsyncItemProcessor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
-import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.mail.MailException;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -36,6 +35,7 @@ public class MailJobConfiguration {
 
     private final MailJobParameterValidator mailJobParameterValidator;
     private final EntityManagerFactory entityManagerFactory;
+    private final StopWatchJobListener stopWatchJobListener;
     private final DataSource dataSource;
     private final EmailService emailService;
 
@@ -52,13 +52,24 @@ public class MailJobConfiguration {
     public Step sendMailStep(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
         return new StepBuilder("sendMailStep", jobRepository)
                 .<Member, Member>chunk(1000, platformTransactionManager)
+                .listener(stopWatchJobListener)
                 .reader(mailItemReader())
-//                .processor(mailItemProcessor(null, null))
+                .processor(mailAsyncItemProcessor())
                 .writer(mailItemWriter())
                 .faultTolerant()
                 .retryLimit(5)
                 .retry(MailException.class)
                 .build();
+    }
+
+    @Bean
+    public AsyncItemProcessor mailAsyncItemProcessor(
+    ) {
+        AsyncItemProcessor<Member, Member> asyncItemProcessor = new AsyncItemProcessor<>();
+        asyncItemProcessor.setDelegate(mailItemProcessor(null, null));
+        asyncItemProcessor.setTaskExecutor(new SimpleAsyncTaskExecutor());
+
+        return asyncItemProcessor;
     }
 
     @Bean
@@ -76,7 +87,8 @@ public class MailJobConfiguration {
     @Bean
     public ItemWriter<Member> mailItemWriter() {
         return items -> {
-            items.forEach(member -> log.info("{}, time={}", member.getEmail(), LocalDateTime.now()));
+            log.info("items = {}, time = {}", items, LocalDateTime.now());
+//            items.forEach(member -> log.info("{}, time={}", member.getEmail(), LocalDateTime.now()));
 //            items.forEach(member -> System.out.println("Send to " + member.getEmail()));
         };
     }
