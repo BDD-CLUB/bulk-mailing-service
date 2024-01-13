@@ -250,7 +250,7 @@ BDD 뉴스레터를 이용해주시는 선배님들께 진심으로 감사드립
 
 ![팀 페이지 디자이닝](https://file.notion.so/f/f/aaedcf79-6b31-4898-9a1f-5e2ad8ae925e/e7925170-bd44-4099-8360-8a767d29c407/%ED%94%84%EB%A6%AC%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%9813.png?id=7517ebbd-d7cb-4992-af1f-7f6e623257e3&table=block&spaceId=aaedcf79-6b31-4898-9a1f-5e2ad8ae925e&expirationTimestamp=1704960000000&signature=f0LAF0CeWRpJ7CEwgDg562kWvFzfIU0EiZjaVDVTkSY&downloadName=%ED%94%84%EB%A6%AC%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%9813.png)
 
-앞으로도 저희 BDD를 많이 사랑해주세요. 
+앞으로도 저희 BDD를 많이 사랑해주세요.
 
 감사합니다.
 ~~~
@@ -279,7 +279,7 @@ BDD 뉴스레터를 이용해주시는 선배님들께 진심으로 감사드립
 
 ## Performance
 
-### v1.0.1
+### v1.1.0
 
 ItemReader Performance
 
@@ -287,6 +287,13 @@ ItemReader Performance
 |----------------------|-----------|------|
 | JpaPagingItemReader  | 100,000   | 60s  |
 | JdbcCursorItemReader | 100,000   | 5s   |
+
+ItemProcessor Performance
+
+| ItemProcessor 종류   | DB 데이터 개수 | 걸린 시간   |
+|--------------------|-----------|---------|
+| ItemProcessor      | 10,000    | 17m 17s |
+| AsyncItemProcessor | 10,000    | 3s      |
 
 ## License
 
@@ -308,3 +315,6 @@ MVP 모델 업로드 및 README 작성
 
 1. mailItemReader를 JpaPagingItemReader에서 JdbcCursorItemReader로 수정 (데이터 10만개 기준으로 성능 12배 상승)
 
+### 2024.01.12 (v1.1.0)
+
+1. ItemProcessor를 동기화에서 비동기적으로 처리하도록 수정 (데이터 1만개 기준으로 340배 상승)
