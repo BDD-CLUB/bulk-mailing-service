@@ -295,6 +295,13 @@ ItemProcessor Performance
 | ItemProcessor      | 10,000    | 17m 17s |
 | AsyncItemProcessor | 10,000    | 3s      |
 
+### v2.0.0
+
+| 메일링 서비스 버전 | DB 데이터 개수 | 걸린 시간 |
+|------------|-----------|-------|
+| v1.0.0     | 10,000    | 12h   |
+| v2.0.0     | 10,000    | 50s   |
+
 ## License
 
 Spring-Batch-Bulk-Mailing-Service는 MIT 라이센스에 따라 사용할 수 있습니다. 자세한 내용은 LICENSE 파일을 참조해주세요.
@@ -318,3 +325,8 @@ MVP 모델 업로드 및 README 작성
 ### 2024.01.12 (v1.1.0)
 
 1. ItemProcessor를 동기화에서 비동기적으로 처리하도록 수정 (데이터 1만개 기준으로 340배 상승)
+
+### 2024.01.14 (v2.0.0)
+
+1. 비동기처리 후 실제 메일 API 테스트 완료
+2. 자잘한 JS 코드 수정
