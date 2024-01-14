@@ -25,6 +25,12 @@ public class Member {
         this.email = email;
     }
 
+    public Member(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
     @Getter
     public enum MemberRoleType {
         ROLE_ADMIN(1),

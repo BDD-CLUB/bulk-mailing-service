@@ -13,9 +13,11 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.integration.async.AsyncItemProcessor;
+import org.springframework.batch.integration.async.AsyncItemWriter;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -55,7 +57,7 @@ public class MailJobConfiguration {
                 .listener(stopWatchJobListener)
                 .reader(mailItemReader())
                 .processor(mailAsyncItemProcessor())
-                .writer(mailItemWriter())
+                .writer(mailAsyncItemWriter())
                 .faultTolerant()
                 .retryLimit(5)
                 .retry(MailException.class)
@@ -86,11 +88,18 @@ public class MailJobConfiguration {
 
     @Bean
     public ItemWriter<Member> mailItemWriter() {
-        return items -> {
-            log.info("items = {}, time = {}", items, LocalDateTime.now());
-//            items.forEach(member -> log.info("{}, time={}", member.getEmail(), LocalDateTime.now()));
-//            items.forEach(member -> System.out.println("Send to " + member.getEmail()));
-        };
+        return new JdbcBatchItemWriterBuilder<Member>()
+                .dataSource(dataSource)
+                .sql("insert into member_copy values (:id, :name, :email)")
+                .beanMapped()
+                .build();
+    }
+
+    @Bean
+    public AsyncItemWriter mailAsyncItemWriter() {
+        AsyncItemWriter<Member> asyncItemWriter = new AsyncItemWriter<>();
+        asyncItemWriter.setDelegate(mailItemWriter());
+        return asyncItemWriter;
     }
 
 //    @Bean
@@ -114,7 +123,7 @@ public class MailJobConfiguration {
                 .fetchSize(1000)
                 .sql("SELECT id, name, email FROM member")
                 .rowMapper((rs, rowNum) -> {
-                    return new Member(rs.getString(2), rs.getString(3));
+                    return new Member(rs.getLong(1), rs.getString(2), rs.getString(3));
                 })
                 .dataSource(dataSource)
                 .build();
