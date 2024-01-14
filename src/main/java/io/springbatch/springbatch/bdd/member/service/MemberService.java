@@ -44,7 +44,9 @@ public class MemberService {
     @Transactional
     public void saveMember(final String nickName, final String email) {
         memberRepository.findByEmail(email)
-                .orElseThrow(() -> new BusinessException(email + "은 중복된 이메일 입니다."));
+                .ifPresent(member -> {
+                    throw new BusinessException(member + "는 이미 존재합니다.");
+                });
 
         memberRepository.save(Member.builder()
                 .name(nickName)

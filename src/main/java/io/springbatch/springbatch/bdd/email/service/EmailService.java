@@ -22,20 +22,16 @@ public class EmailService {
     private final JavaMailSender javaMailSender;
     private final MdFormatConverter mdFormatConverter;
 
-//    public void sendEmail(String to, String subject, String text) throws MessagingException {
-//        MimeMessage message = javaMailSender.createMimeMessage();
-//        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-//
-//        String convertedMessage = mdFormatConverter.convert(text);
-//
-//        helper.setTo(to);
-//        helper.setSubject(subject);
-//        helper.setText(convertedMessage, true);
-//
-//        javaMailSender.send(message);
-//    }
+    public void sendEmail(String to, String subject, String text) throws MessagingException {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-    public void sendEmail(String to, String subject, String text) throws InterruptedException {
-        Thread.sleep(100);
+        String convertedMessage = mdFormatConverter.convert(text);
+
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(convertedMessage, true);
+
+        javaMailSender.send(message);
     }
 }

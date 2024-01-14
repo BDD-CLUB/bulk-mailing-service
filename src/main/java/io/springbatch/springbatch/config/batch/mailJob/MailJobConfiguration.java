@@ -19,6 +19,7 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
+import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -101,18 +102,6 @@ public class MailJobConfiguration {
         asyncItemWriter.setDelegate(mailItemWriter());
         return asyncItemWriter;
     }
-
-//    @Bean
-//    public ItemReader<Member> mailItemReader() {
-//        log.info("itemReader {}", LocalDateTime.now());
-//
-//        return new JpaPagingItemReaderBuilder<Member>()
-//                .name("memberMailReader")
-//                .entityManagerFactory(this.entityManagerFactory)
-//                .pageSize(20)
-//                .queryString("SELECT m FROM Member m")
-//                .build();
-//    }
 
     @Bean
     public ItemReader<Member> mailItemReader() {
