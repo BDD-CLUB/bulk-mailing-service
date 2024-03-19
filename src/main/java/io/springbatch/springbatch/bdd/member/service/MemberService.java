@@ -4,14 +4,9 @@ import io.springbatch.springbatch.bdd.member.dto.response.FindAllMemberResponse;
 import io.springbatch.springbatch.bdd.member.entity.Member;
 import io.springbatch.springbatch.bdd.member.entity.MemberRepository;
 import io.springbatch.springbatch.config.exception.BusinessException;
-import io.springbatch.springbatch.member.entity.password.Password;
-import io.springbatch.springbatch.member.service.AuthCookieService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
